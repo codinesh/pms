@@ -1,24 +1,23 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './assets/styles/index.css'
-import App from './App'
-import { Route, BrowserRouter as Router } from 'react-router-dom'
-import About from './components/About'
-import logo from './assets/images/logo.svg'
-import './assets/styles/App.css'
-import UserDetails from './components/UserDetails'
+import Bill from './pages/Bills'
+import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom'
+import About from './pages/About'
+import Header from './components/Header'
+import Home from './pages/Home'
 
 ReactDOM.render(
   <div className='App'>
-    <header className='App-header'>
-      <img src={logo} className='App-logo' alt='logo' />
-      <UserDetails name='Dinesh' />
-    </header>
     <Router>
-      <div>
-        <Route exact path='/' component={App} />
+      <Header />
+
+      <Switch>
+        <Route exact path='/' component={Home} />
+        <Route exact path='/home' component={Home} />
+        <Route exact path='/bill' component={Bill} />
         <Route exact path='/about' component={About} />
-      </div>
+      </Switch>
     </Router>
   </div>,
   document.getElementById('root')
