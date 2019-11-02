@@ -6,7 +6,8 @@ interface IUserDetails {
 
 const style: CSSProperties = {
   marginRight: '1em',
-  display: 'flex',
+  // display: 'flex',
+  color: 'white',
   flexDirection: 'row'
 }
 
@@ -22,8 +23,8 @@ const onlineindicator: CSSProperties = {
 const UserDetails = (props: IUserDetails) => {
   return (
     <div style={style}>
-      <p style={onlineindicator}></p>
-      <p>{props.name}</p>
+      <span style={onlineindicator}></span>
+      <span>{props.name}</span>
     </div>
   )
 }

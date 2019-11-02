@@ -5,21 +5,22 @@ const App: React.FC = () => {
   const { bills } = useGlobalState()
   const dispatch = useDispatch()
 
-  const billStyle: CSSProperties = {
+  let billStyle: CSSProperties = {
     backgroundColor: 'orange',
     minHeight: '5vh',
     marginBottom: '10px'
   }
 
   useEffect(() => {
-    console.log('bill...')
-  }, [])
+    billStyle = { ...billStyle, backgroundColor: 'red' }
+    console.log('effect')
+  })
 
   return (
     <div>
       <div key={0} style={billStyle}>
         <p>create</p>
-        <p>{}</p>
+        <p>{billStyle.backgroundColor}</p>
         <p>{} </p>
       </div>
       {bills.map(bill => (
@@ -33,9 +34,9 @@ const App: React.FC = () => {
       <input
         type='button'
         onClick={() => {
-          console.log('clicking...')
-          dispatch({ type: 'ADD_BILL', payload: 'test' })
-          console.log('clicking done...')
+          // console.log('clicking...')
+          // dispatch({ type: 'ADD_BILL', payload: 'test' })
+          // console.log('clicking done...')
         }}
         value='Add'
       />
