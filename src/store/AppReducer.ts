@@ -27,14 +27,13 @@ export const initialState: AppContextProps = {
 
 export type Action =
   | { type: 'FETCH_APP_DATA'; payload: IGlobalInfo }
-  | { type: 'ADD_BILL'; payload: string }
+  | { type: 'ADD_BILL'; payload: { amount: Number } }
   | {
       type: 'UPDATE_SITE_URL'
       payload: { fetchSiteUrl: string; fetchSiteTitle: string }
     }
 
 export const appReducer = (state: AppContextProps, action: Action) => {
-  console.log('reducer')
   switch (action.type) {
     case 'FETCH_APP_DATA':
       return {
@@ -55,7 +54,14 @@ export const appReducer = (state: AppContextProps, action: Action) => {
     case 'ADD_BILL':
       return {
         ...state,
-        bills: []
+        bills: [
+          ...state.bills,
+          {
+            id: 'three',
+            date: new Date('30/10/2019'),
+            amount: action.payload.amount
+          }
+        ]
       }
     default:
       return state

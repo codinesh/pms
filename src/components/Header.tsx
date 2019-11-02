@@ -5,9 +5,6 @@ import { Link } from 'react-router-dom'
 import UserDetails from './UserDetails'
 
 const Header = () => {
-  useEffect(() => {
-    console.log('header loaded...')
-  }, [])
   return (
     <>
       <Navbar bg='dark' variant='dark' expand='sm'>
