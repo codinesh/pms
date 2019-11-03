@@ -1,6 +1,13 @@
 import React, { CSSProperties, useEffect, useState } from 'react'
 import { AppContext, AppDispatch } from '../store/BillsContext'
-import { InputGroup, FormControl, Row, Container, Card } from 'react-bootstrap'
+import {
+  InputGroup,
+  FormControl,
+  Card,
+  CardColumns,
+  Form,
+  Button
+} from 'react-bootstrap'
 import { IBill } from '../Interfaces/AppInterface'
 
 const App: React.FC = () => {
@@ -14,30 +21,22 @@ const App: React.FC = () => {
   })
 
   let billStyle: CSSProperties = {
-    backgroundColor: 'orange',
     minHeight: '5vh',
-    marginBottom: '10px'
+    width: '100vw'
   }
 
   useEffect(() => {}, [billStyle])
 
   return (
     <div>
-      <div key={0} style={billStyle}>
+      <Form onSubmit={(e: React.FormEvent) => e.preventDefault()}>
         <Card
-          bg='dark'
-          text='white'
-          style={{ width: '18rem' }}
+          border='secondary'
+          style={{ marginBottom: 15 }}
           onClick={() => {
             dispatch({ type: 'ADD_BILL', payload: { amount: state.amount } })
           }}>
-          <Card.Body>
-            <Card.Title>add bill</Card.Title>
-          </Card.Body>
-        </Card>
-
-        <Container>
-          <Row>
+          <Form.Group controlId='tes'>
             <InputGroup className='mb-3'>
               <InputGroup.Prepend>
                 <InputGroup.Text>₹</InputGroup.Text>
@@ -51,28 +50,57 @@ const App: React.FC = () => {
                 }}
               />
             </InputGroup>
+          </Form.Group>
+          <InputGroup className='mb-3'>
+            <InputGroup.Prepend>
+              <InputGroup.Text>₹</InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl
+              id='test'
+              value={state.amount + ''}
+              aria-label='Bill Amount'
+              onChange={() => {
+                setState({ ...state, amount: 100 })
+              }}
+            />
+          </InputGroup>
+          <Button variant='primary' type='submit'>
+            Submit
+          </Button>
+        </Card>
+      </Form>
 
-            <br />
-            <InputGroup>
-              <InputGroup.Prepend>
-                <InputGroup.Text>Bill Description</InputGroup.Text>
-              </InputGroup.Prepend>
-              <FormControl
-                as='textarea'
-                style={{ minHeight: '40px' }}
-                aria-label='With textarea'
-              />
-            </InputGroup>
-          </Row>
-        </Container>
-      </div>
-      {bills.map(bill => (
-        <div key={bill.id} style={billStyle}>
-          <p>{bill.id}</p>
-          <p>{bill.amount}</p>
-          <p>{bill.date.toLocaleDateString()} </p>
-        </div>
-      ))}
+      <CardColumns
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          flexWrap: 'wrap'
+        }}>
+        {bills.map(bill => (
+          <Card
+            key={bill.id}
+            bg='dark'
+            text='white'
+            style={{
+              width: '18rem'
+              //margin: '5px'
+            }}>
+            <Card.Body>
+              <Card.Title>Dark Card Title</Card.Title>
+              <Card.Text>
+                <div>
+                  <p>{bill.id}</p>
+                  <p>{bill.amount}</p>
+                  <p>{bill.date.toLocaleDateString()} </p>
+                </div>
+              </Card.Text>
+            </Card.Body>
+            <Card.Footer>
+              <small className='text-muted'>Last updated 3 mins ago</small>
+            </Card.Footer>
+          </Card>
+        ))}
+      </CardColumns>
     </div>
   )
 }
