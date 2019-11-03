@@ -1,9 +1,11 @@
 import { IGlobalInfo, IBill } from '../Interfaces/AppInterface'
+import { AppContext } from './BillsContext'
 
 export interface AppContextProps {
   appState: IGlobalInfo
   bills: IBill[]
 }
+
 export const initialState: AppContextProps = {
   appState: {
     UserId: '',
@@ -27,13 +29,16 @@ export const initialState: AppContextProps = {
 
 export type Action =
   | { type: 'FETCH_APP_DATA'; payload: IGlobalInfo }
-  | { type: 'ADD_BILL'; payload: { amount: Number } }
+  | { type: 'ADD_BILL'; payload: { amount: number } }
   | {
       type: 'UPDATE_SITE_URL'
       payload: { fetchSiteUrl: string; fetchSiteTitle: string }
     }
 
-export const appReducer = (state: AppContextProps, action: Action) => {
+export const appReducer = (
+  state: AppContextProps,
+  action: Action
+): AppContextProps => {
   switch (action.type) {
     case 'FETCH_APP_DATA':
       return {
@@ -44,12 +49,6 @@ export const appReducer = (state: AppContextProps, action: Action) => {
           UserDisplayName: action.payload.UserDisplayName,
           Email: action.payload.Email
         }
-      }
-    case 'UPDATE_SITE_URL':
-      return {
-        ...state,
-        fetchSiteUrl: action.payload.fetchSiteUrl,
-        fetchSiteTitle: action.payload.fetchSiteTitle
       }
     case 'ADD_BILL':
       return {

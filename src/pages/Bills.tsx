@@ -1,12 +1,17 @@
 import React, { CSSProperties, useEffect, useState } from 'react'
 import { AppContext, AppDispatch } from '../store/BillsContext'
 import { InputGroup, FormControl, Row, Container, Card } from 'react-bootstrap'
+import { IBill } from '../Interfaces/AppInterface'
 
 const App: React.FC = () => {
   const { bills } = React.useContext(AppContext)
   const dispatch = React.useContext(AppDispatch)
 
-  let st = useState(1)
+  let [state, setState] = useState<IBill>({
+    id: '0',
+    amount: 0,
+    date: new Date()
+  })
 
   let billStyle: CSSProperties = {
     backgroundColor: 'orange',
@@ -24,7 +29,7 @@ const App: React.FC = () => {
           text='white'
           style={{ width: '18rem' }}
           onClick={() => {
-            dispatch({ type: 'ADD_BILL', payload: { amount: st[0] } })
+            dispatch({ type: 'ADD_BILL', payload: { amount: state.amount } })
           }}>
           <Card.Body>
             <Card.Title>add bill</Card.Title>
@@ -39,10 +44,10 @@ const App: React.FC = () => {
               </InputGroup.Prepend>
               <FormControl
                 id='test'
-                value={st[0] + ''}
+                value={state.amount + ''}
                 aria-label='Bill Amount'
                 onChange={() => {
-                  st[1](st[0]++)
+                  setState({ ...state, amount: 100 })
                 }}
               />
             </InputGroup>
@@ -65,7 +70,7 @@ const App: React.FC = () => {
         <div key={bill.id} style={billStyle}>
           <p>{bill.id}</p>
           <p>{bill.amount}</p>
-          <p>{bill.date.toLocaleString()} </p>
+          <p>{bill.date.toLocaleDateString()} </p>
         </div>
       ))}
     </div>
@@ -73,6 +78,3 @@ const App: React.FC = () => {
 }
 
 export default App
-function newFunction(): string {
-  return 'test'
-}

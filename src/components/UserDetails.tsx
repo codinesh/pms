@@ -1,7 +1,7 @@
 import React, { CSSProperties } from 'react'
 
 interface IUserDetails {
-  name: String
+  name: string
 }
 
 const style: CSSProperties = {
