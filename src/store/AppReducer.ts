@@ -15,21 +15,26 @@ export const initialState: AppContextProps = {
   },
   bills: [
     {
-      id: 'One',
-      date: new Date('30/10/2019'),
-      amount: 12345
+      id: 1,
+      date: new Date(),
+      amount: 12345,
+      description: 'One'
     },
     {
-      id: 'Two',
-      date: new Date('30/10/2019'),
-      amount: 1345
+      id: 2,
+      date: new Date(),
+      amount: 1345,
+      description: 'two'
     }
   ]
 }
 
 export type Action =
   | { type: 'FETCH_APP_DATA'; payload: IGlobalInfo }
-  | { type: 'ADD_BILL'; payload: { amount: number } }
+  | {
+      type: 'ADD_BILL'
+      payload: { amount: number; billDate: Date; billDetails: string }
+    }
   | {
       type: 'UPDATE_SITE_URL'
       payload: { fetchSiteUrl: string; fetchSiteTitle: string }
@@ -56,9 +61,10 @@ export const appReducer = (
         bills: [
           ...state.bills,
           {
-            id: 'three',
-            date: new Date('30/10/2019'),
-            amount: action.payload.amount
+            id: state.bills.length + 1,
+            date: action.payload.billDate,
+            amount: action.payload.amount,
+            description: action.payload.billDetails
           }
         ]
       }

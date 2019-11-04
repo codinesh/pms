@@ -9,9 +9,10 @@ export interface IGlobalInfo {
 }
 
 export interface IBill {
-  id: string
+  id: number
   date: Date
   amount: number
+  description: string
 }
 
 export interface HistoryProps {
