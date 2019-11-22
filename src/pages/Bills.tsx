@@ -9,7 +9,6 @@ import {
   Button
 } from 'react-bootstrap'
 import { IBill } from '../Interfaces/AppInterface'
-import { DateSingleInput } from '@datepicker-react/styled'
 
 const App: React.FC = () => {
   const { bills } = React.useContext(AppContext)
